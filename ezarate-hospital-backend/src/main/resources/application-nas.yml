@@ -1,0 +1,18 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://${DB_HOST:nas.local}:${DB_PORT:5432}/${DB_NAME:ezarate_hospital}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+  jpa:
+    show-sql: false
+
+logging:
+  level:
+    com.ezarate.hospital: INFO
+
+app:
+  storage:
+    # e.g. a mounted NAS share such as /mnt/nas/ezarate-hospital/storage —
+    # set APP_STORAGE_DIR as a real env var for this profile, same pattern
+    # as DB_HOST/DB_NAME above.
+    base-dir: ${APP_STORAGE_DIR}

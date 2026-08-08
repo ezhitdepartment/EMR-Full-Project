@@ -1,0 +1,33 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/ezarate_hospital
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:postgres}
+    hikari:
+      maximum-pool-size: 30
+      minimum-idle: 10
+      connection-timeout: 30000
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+logging:
+  level:
+    com.ezarate.hospital: DEBUG
+
+app:
+  jwt:
+    # Local dev only — never reuse this in a real deployment. On the NAS,
+    # set JWT_SECRET as a real environment variable instead (see the
+    # application-nas.yml profile, which has no fallback value on purpose).
+    secret: "2abe81028c9a6a61a701ff3e2b6543e42510f5fb348588583cf53d2710f28ebe"
+  cors:
+    # Was hardcoded here, which silently ignored CORS_ALLOWED_ORIGINS no
+    # matter what you set it to, since the "local" profile (active by
+    # default) always overrides application.yml's value for this key.
+    # Now it falls back to the same two local defaults, but still lets
+    # you override it per-session — e.g. to add a Cloudflare tunnel URL
+    # while stress testing — without editing this file every time.
+    allowed-origins: ${CORS_ALLOWED_ORIGINS:http://localhost:5173,http://192.168.0.179:5173}
